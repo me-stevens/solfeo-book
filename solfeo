@@ -1,0 +1,16 @@
+# First off, clean out the output folder
+rm -rf out
+
+# Then, compile the lytex files
+lilypond-book --output=out --left-padding=0 --process='lilypond --define-default=line-width=10\cm' solfeoback.lytex
+
+# Finally, compile tex files
+cp solfeo.tex solfeocover.tex cover.png license.png out
+cd out
+xelatex solfeo.tex
+xelatex solfeo.tex
+xelatex solfeo.tex
+cd ..
+mv out/solfeo.pdf .
+
+evince solfeo.pdf &

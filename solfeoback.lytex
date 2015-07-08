@@ -1,0 +1,29 @@
+% **************************************************
+%  Back cover
+% **************************************************
+
+\pagecolor{yellow}
+\bfseries\color{white}
+\vfill
+
+\begin{center}
+  {\fontsize{50pt}{50pt}\selectfont\AlegreyaBlack\itshape\color{blue}Solfeo}
+
+  {\Large\itshape A book to learn to write and read music.}
+
+
+  \vfill % --- Treble clef ----------------------------
+
+  \begin{lilypond}[fragment, staffsize = 200]
+    \omit Staff.StaffSymbol
+    \omit Staff.TimeSignature
+    \override Staff.Clef #'color = #(rgb-color 0.96 0.81 0.25)
+    \clef treble
+  \end{lilypond}
+
+  \vfill % --- EO Treble clef -------------------------
+
+
+  If you have any questions, visit the Solfeo blog:\\
+  \small\href{https://octopusinvitro.github.io/solfeo-book}{\url{https://octopusinvitro.github.io/solfeo-book}}
+\end{center}
