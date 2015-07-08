@@ -1,0 +1,468 @@
+\documentclass[
+  12pt,       % Default is 10pt
+  a4paper,
+  english,    % Babel
+  even,       % Chapter can start on even or odd page
+  twoside     % Non symmetrical margins
+]{book}
+
+\usepackage[
+  bindingoffset = 0in,
+  left    = 3cm,
+  right   = 6cm,
+  top     = 4cm,
+  bottom  = 4cm,
+]{geometry}                      % Changes settings in the whole page
+\usepackage{changepage}          % Until I learn how to make nodes of
+                                 % paperwidth (used in exercises)
+\usepackage{Alegreya}            % Main font
+\usepackage{AlegreyaSans}        % Sans font
+\usepackage{DejaVuSansMono}      % Mono font for links
+\usepackage{pifont}              % Exercises font
+\usepackage{csquotes}            % quotes
+\usepackage{fontspec}            % Fonts
+
+\usepackage{fancyhdr}            % Headers & footers
+\usepackage{framed}              % Table of contents
+\usepackage{tocloft}             % List of lessons
+\usepackage[explicit,clearempty]{titlesec}	% Sections
+\usepackage{makeidx}             % Index (alphabetical list of keywords)
+
+\usepackage[table]{xcolor}       % User colors
+\usepackage{eso-pic}             % Big background images
+\usepackage{tikz}                % Page numbers
+
+\usepackage{ctable}
+
+\usepackage{float}               % Place figure or table HERE
+\usepackage[hang,small]{caption} % Modify caption labels margin=20pt, tableposition=top, textfont=it
+
+\usepackage{lipsum}
+\usepackage{url}                 % Clickable URLs
+\usepackage[bookmarks]{hyperref} % PDF with links. Goes AFTER all packages
+
+% **************************************************
+% Lengths
+% **************************************************
+\newlength{\equalmargin}
+\setlength{\equalmargin}{5cm}
+
+% **************************************************
+%  Fonts
+% **************************************************
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Alegreya}
+\setsansfont{Alegreya Sans}
+\setmonofont{DejaVuSansMono}
+
+% **************************************************
+%  Colors
+% **************************************************
+\definecolor{blue}{RGB}{34,128,188}   % 0.13 0.50 0.73
+\definecolor{lightblue}{RGB}{199,234,253}
+\definecolor{lightgray}{RGB}{230,230,230}
+\definecolor{yellow}{HTML}{F3C50F}
+\definecolor{green} {HTML}{9ACD32}
+\definecolor{violet}{HTML}{990055}
+\definecolor{red}   {HTML}{C23A2C}
+
+% **************************************************
+%  Page numbers
+% **************************************************
+\usetikzlibrary{shapes,positioning}
+
+% Width of the pagenumber colour-box
+\newlength\pagenumwidth
+\settowidth{\pagenumwidth}{99999}
+
+% Define style of pagenumber colour-box
+\tikzset{pagefooter/.style = {
+  anchor     = base,
+  font       = \rmfamily\bfseries\small,
+  text       = gray,
+  fill       = lightgray!50!white,
+  text depth = 35cm,
+  text width = \pagenumwidth,
+  text centered
+  }
+}
+% PLAIN --- (non-chapter pages)
+\fancypagestyle{plain}{   % -----------------------------------------------
+  % Clear all headers and footers
+  \fancyhf{}
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+% FRONT --- (non-chapter pages)
+\fancypagestyle{frontmatter}{   % -----------------------------------------------
+  % Clear all headers and footers
+  \fancyhf{}
+  % Right footers on odd pages and left footers on even pages,
+  % display the page number
+  \fancyfoot[CO,CE] {\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+% HEADINGS --- (on chapter pages)
+\fancypagestyle{headings}{% -----------------------------------------------
+  % Clear all headers and footers
+  \fancyhf{}
+  % Right footers on odd pages and left footers on even pages,
+  % display the page number in a coloured box
+  \fancyfoot[RO] { \tikz[baseline]\node[pagefooter]{\thepage};\hspace*{-7.1cm} }
+  \fancyfoot[LE] { \hspace*{-7cm}\tikz[baseline]\node[pagefooter]{\thepage}; }
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% **************************************************
+%  List of lessons
+% **************************************************
+\newcommand{\listlessonname}{List of Lessons}
+\newlistof{lesson}{lol}{\listlessonname}
+\newcommand{\lesson}{%
+  \refstepcounter{lesson}
+  \par\noindent\textbf{\scshape Lesson \thelesson. }
+  \addcontentsline{lol}{lesson}
+  {\protect\numberline{Lesson \thelesson}}\par}
+
+% **************************************************
+%  Titles of lists
+% **************************************************
+\renewcommand{\cfttoctitlefont}{\hfill\Huge\itshape}
+\renewcommand{\cftloftitlefont}{\hfill\Huge\itshape}
+\renewcommand{\cftloltitlefont}{\hfill\Huge\itshape}
+
+% **************************************************
+%  Table of contents
+% **************************************************
+\renewenvironment{leftbar}{%
+  \def\FrameCommand{{\color{yellow}\vrule width 2pt depth 6pt} \hspace{10pt}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}
+{\endMakeFramed}
+
+\makeatletter
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+  \if@mainmatter
+    \refstepcounter{chapter}%
+    \typeout{\@chapapp\space\thechapter.}%
+    \addtocontents{toc} {%
+      {% The page number ---------------------------
+      \protect\parbox{.4\textwidth}%
+        {\hfill\Huge\color{blue}\bfseries\thepage}
+      }% Space for the vrule -----------------------
+      \protect\hspace*{.5em}
+      % The chapter name and title -----------------
+      \protect\parbox{\dimexpr\linewidth-4em\relax}{%
+        \protect\begin{leftbar}
+          {\scshape\small\chaptername~\thechapter}\\
+          \sffamily#1%
+        \protect\end{leftbar}
+      }\par\noindent
+    }%
+  \else
+    \addcontentsline{toc}{chapter}{#1}%
+  \fi
+  \else
+    \addcontentsline{toc}{chapter}{#1}%
+  \fi
+
+  \chaptermark{#1}%
+
+  \if@twocolumn
+    \@topnewpage[\@makechapterhead{#2}]%
+  \else
+    \@makechapterhead{#2}%
+    \@afterheading
+  \fi}
+\makeatother
+
+
+% **************************************************
+%  Chapters
+% **************************************************
+\newcommand\chapternumfont {\fontsize{380}{130}\color{white}\selectfont}
+\newcommand\chapternamefont{\fontsize{36}{36}\color{gray}\selectfont\AlegreyaBlack}
+\newcommand\sectioncolor   {blue}
+\newcommand\sectionfont    {\Large\sffamily\bfseries\color{blue}}
+\newcommand\subsectionfont {\large\sffamily\bfseries\color{gray}\itshape\AlegreyaBlack}
+% Title aligned right and in italics ------------------------------------
+\titleformat{\chapter}[block]{\raggedleft\itshape}{}
+  {0pt}{\parbox{\linewidth}{\raggedleft\vspace*{1em}\Huge#1}}
+% Chapter header height for the body matter titles ----------------------
+\newlength{\chapterheaderheight}
+\setlength{\chapterheaderheight}{11.5cm}
+
+% **************************************************
+%  Sections
+% **************************************************
+\titleformat{\section}
+  {}{}{0em}
+  {\begin{tikzpicture}[remember picture]
+    % The blue area -----------------------------
+    \node[
+      fill       = \sectioncolor,
+      text width = 60pt,
+      inner ysep = .8em,
+      font       = \sectionfont\small\color{white},
+      align      = center
+    ]
+      {Definition};
+    % The section title ------------------------
+    \node[
+      anchor = north west,
+      xshift = 40pt,
+      yshift = 13pt,
+      font   = \sectionfont
+    ]
+      {#1};
+    \draw[
+      \sectioncolor,
+      line width = 1
+    ]
+      (0,-.3) -- (.9\textwidth,-.3);
+  \end{tikzpicture}
+  }
+\titlespacing*{\section}{0pt}{*12}{0cm}
+
+% **************************************************
+%  Subsections
+% **************************************************
+\titleformat{\subsection}{}{}{0em}{\subsectionfont#1}
+\titlespacing*{\subsection}{0pt}{*10}{1em}
+
+% **************************************************
+% Captions
+% **************************************************
+\DeclareCaptionFont{sf}{\AlegreyaSansLight}
+\DeclareCaptionFont{bf}{\AlegreyaSansMedium}
+\captionsetup{width=0.8\textwidth}
+\captionsetup{labelfont=bf,textfont=sf}
+
+% **************************************************
+% PDF output
+% **************************************************
+\hypersetup {
+% --- Configuration options --------------------------------------------------------------------------
+  breaklinks  = true,     % allow links to break over lines by making links over multiple lines into PDF links to the same target.
+% --- Extension options ------------------------------------------------------------------------------
+  linktoc     = all,      % section, slide, page, none, or all be link on TOC/LOF/LOT. Also linktocpage = true.
+  colorlinks  = true,     % false: boxed links; true: colored links (boxed links are not printed). Only named colors work.
+  linkcolor   = blue,     % color of internal links
+  urlcolor    = blue,     % color of external links
+  citecolor   = blue,     % color of links to bibliography
+% --- PDF-specific display options -------------------------------------------------------------------
+  linkbordercolor = {1 0 0},           % The color of the box around normal links
+  urlbordercolor  = {0.13 0.50 0.73},	% The color of the box around links to URLs
+  citebordercolor = {0.13 0.50 0.73},	% The color of the box around citations
+% --- PDF display and information options ------------------------------------------------------------
+  pdftitle     = {Solfeo},                   % title
+  pdfsubject   = {Learn how to read music},  % subject of the document
+  pdfstartview = {FitV},                     % fits the height of the page to the window
+}
+
+% **************************************************
+%  Custom commands
+% **************************************************
+\newcommand{\bfi}{\begin{figure}}
+\newcommand{\efi}{\end{figure}}
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand\pagerf[2]{#1~\pageref{#2}}
+% Lists and exercise icons ------------------------
+\newcommand*\circled[2]{
+  \tikz[baseline = (char.base)]{
+    \node[
+      draw,
+      shape      = circle,
+      inner sep  = .1em,
+      text width = 1em,
+      align      = center,
+      fill       = lightgray,
+      #1
+    ] (char) {\color{gray}#2};
+  }
+}
+% Background picture ------------------------------
+\newcommand\BackgroundPic{
+  \put(-126,0){
+    \parbox[b][210mm]{297mm}{
+      \vfill
+      \centering
+      \includegraphics[width=210mm,keepaspectratio]{cover.png}%
+      \vfill
+    }
+  }
+}
+\renewcommand*{\pageautorefname}{Page}
+
+% **************************************************
+%  Exercises
+% **************************************************
+\newcommand\exercisefont{\large\sffamily\bfseries\color{gray}}
+% Exercises titles --------------------------------------------
+\newcommand\extitles[2]{
+  \circled{lightgray}{
+    \Huge\raisebox{-.7em}{
+      \hspace*{-.4em}\ding{#1}
+    }
+  }
+  \raisebox{-1em}{\exercisefont#2}
+}
+% Types of exercises ------------------------------------------
+\newcommand\grafex{\extitles{ 50}{Graphic exercise:}} % Graphic
+\newcommand\readex{\extitles{ 42}{Measured reading:}} % Reading
+\newcommand\singex{\extitles{220}{Measured singing:}} % Singing
+% Margin length ----------------------------------
+\newlength\themargin
+\settowidth{\themargin}{\the\dimexpr\oddsidemargin\relax}
+% Exercise environment ----------------------------------------
+\newcommand\exercise[3]{%
+\begin{adjustwidth}{-4\themargin}{-4\themargin}
+  % Change the page reference name just for exercises
+  \begingroup
+  \renewcommand*{\pageautorefname}{p.}
+  \begin{tikzpicture}\label{grafex:#1}
+    \node[
+      anchor     = north west,
+      text width = \paperwidth,
+      inner xsep = 4\themargin,
+      inner ysep = 0.5cm,
+      fill       = lightgray!50!white,
+      ]{%
+        #2\par\vspace*{1em}
+        \begin{minipage}{12cm}
+          \color{gray}
+          { \sffamily#3 }\par
+          { \sffamily\itshape\raggedleft(Solution in p. \autopageref{sol:#1})\par }
+        \end{minipage}
+      };
+  \end{tikzpicture}
+  \endgroup
+\end{adjustwidth}
+}
+
+% Fuzz
+\hfuzz2pt % Don't bother to report over-full boxes if over-edge is < 2pt
+
+% Index
+\makeindex
+
+
+
+% **************************************************
+%  DOCUMENT
+% **************************************************
+\begin{document}
+
+
+  % FRONT MATTER -----------------------------------------------------------
+  \newgeometry{left=\equalmargin,right=\equalmargin}
+
+  \pagenumbering{roman}   % roman page numbering (invisible for empty page style)
+  \pagestyle{frontmatter} % display just page numbers
+  \setcounter{page}{-1}   % set page counter
+
+  % COVER and credits
+  \thispagestyle{empty}
+  \pdfbookmark[0]{Cover}{cover}
+  \input{solfeocover}
+  \cleardoublepage
+
+  % Print only chapters in ToC
+  \setcounter{tocdepth}{0}
+
+  \pdfbookmark[0]{Contents}{contents}
+  \tableofcontents
+  \cleardoublepage
+
+  \pdfbookmark[0]{Figures}{figures}
+  \listoffigures
+  \cleardoublepage
+
+  \pdfbookmark[0]{Lessons}{lessons}
+  \listoflesson
+  \cleardoublepage
+
+  \pdfbookmark[0]{Preface}{preface}
+  \cleardoublepage
+
+
+
+  % BODY MATTER ------------------------------------------------------------
+  \restoregeometry
+
+  % fancy header and footers
+  \pagestyle{headings}
+
+  % Main matter starts here; resets page-numberings to arabic numeral 1
+  \mainmatter
+  \pagenumbering{arabic} % arabic page numbering
+  \setcounter{page}{1}   % set page counter
+
+  % Title number in white over a yellow background -----------------------------------------------
+  \begingroup
+  \titleformat{\chapter}
+    {\filleft}
+    {}
+    {20pt}
+    {\begin{tikzpicture}[remember picture,overlay]
+      % The gray area -----------------------------
+      \fill[lightgray!50!white]
+        (current page.north west) rectangle
+        ([yshift=-\chapterheaderheight]current page.north east);
+      % The yellow area ---------------------------
+      \node[
+        fill            = yellow,
+        text width      = 2\paperwidth,
+        rounded corners = 6cm,
+        text depth      = 18cm
+      ] at (current page.north east) (chaptertop)
+        {\thechapter};
+      % The chapter number ------------------------
+      \node[
+        anchor    = south east,
+        inner sep = 0pt,
+        outer sep = 0pt
+      ] (chapternum) at ([xshift=-6\oddsidemargin]chaptertop.south)
+        {\chapternumfont\thechapter};
+      % The chapter title -------------------------
+      \node[
+        anchor     = north east,
+        align      = right
+      ] at ([xshift=-0.3\oddsidemargin,yshift=-0.5cm]chapternum.east|-chapternum.south)
+        {\parbox{\textwidth}{\raggedleft\chapternamefont#1}};
+    \end{tikzpicture}
+    }
+  \titlespacing*{\chapter}{0pt}{0pt}{.7\chapterheaderheight}
+
+
+  \newpage
+
+
+  % BACK MATTER -----------------------------------------------------------------
+  % Reset body matter styles and go back to front matter ones
+  \endgroup
+  \cleardoublepage
+
+%	\pagestyle{empty}\newpage\mbox{}
+%	\clearpage
+
+  % Solutions to the exercises
+  \pagestyle{plain}      % display just page numbers
+  \cleardoublepage
+
+  % Keyword index
+  \pdfbookmark{Index}{index}
+  \printindex
+  \cleardoublepage
+
+  % Back cover
+  \newgeometry{left=\equalmargin,right=\equalmargin}
+  \thispagestyle{empty}
+  \input{solfeoback}
+
+
+\end{document}
