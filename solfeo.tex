@@ -336,7 +336,7 @@
         \begin{minipage}{12cm}
           \color{gray}
           { \sffamily#3 }\par
-          { \sffamily\itshape\raggedleft(Solution in p. \autopageref{sol:#1})\par }
+          { \sffamily\itshape\raggedleft(Solution in \autopageref{sol:#1})\par }
         \end{minipage}
       };
   \end{tikzpicture}
@@ -441,6 +441,7 @@
 
 
   \newpage
+  \input{solfeo01}
 
 
   % BACK MATTER -----------------------------------------------------------------
@@ -453,6 +454,7 @@
 
   % Solutions to the exercises
   \pagestyle{plain}      % display just page numbers
+  \input{solfeosolutions}
   \cleardoublepage
 
   % Keyword index

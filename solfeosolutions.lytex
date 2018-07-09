@@ -1,0 +1,19 @@
+\chapter{Solutions}
+
+  \textbf{ \autopageref{grafex:series} }. Graphic example:\label{sol:series}
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[ExampleSol.]{ExampleSol.}\label{fig:examplesol}
+  \ec
+\efi
+
+  \noindent\textbf{ \autopageref{grafex:staff} }. Graphic example:\label{sol:staff}
+
+  \noindent\textbf{ \autopageref{grafex:clef} }. Graphic example:\label{sol:clef}
+
+  \noindent\textbf{ \autopageref{grafex:tempo} }. Graphic example:\label{sol:tempo}
+Use a metronome to help you mark the different beats of the metre at different speeds or tempos.
+
+%\lilypondfile[indent=1\cm,ragged-right]{scores/Exercise_105.xml.ly}

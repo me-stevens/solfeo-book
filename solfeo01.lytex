@@ -1,0 +1,199 @@
+\chapter{Introduction}
+
+\begin{description}
+    \item[Music]\index{Music} is the art of combining sounds, and these with time.
+    \item[Solfeo]\index{Solfeo} is the art that lets us know all the musical signs, theoretically and practically.
+    \item[Notes]\index{Notes} are the seven monosyllables \textit{\textbf{Do, Re, Mi, Fa, Sol, La, Si}} (also known as C, D, E, F, G, A, B) which are used to represent tones.
+\end{description}
+
+  In the indicated order, they form a series of ascendant sounds, that may be followed by another or several series. In the inverse order, they form a series of descending sounds.
+
+Example:
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Example.]{Example.}\label{fig:example}
+  \ec
+\efi
+
+
+\exercise{series}{\grafex}{Write the series of ascendant and descendant tones for each note, as shown in the previous example.}
+
+
+
+\section*{Staff or stave\index{Staff or stave}}
+
+The staff is made of five parallel lines and four spaces in between them, in which the musical characters are written. The numerical order of said lines and spaces is from the bottom up.
+
+Example:
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Numerical order of the lines and spaces in the staff.]{Numerical order of the lines and spaces in the staff.}\label{fig:staff}
+  \ec
+\efi
+
+
+
+\section*{Ledger lines\index{Ledger lines}}
+
+Those who are placed above and below the \textbf{staff}. Together with the spaces in between them, they are used to place the notes that don't fit in the staff. This is the case for notes who belong to series of too high or too low sounds. Their numerical order is from bottom up for the lines above, starting after the fifth line of the staff, and from the top down for the lines below, starting after the first line of the staff. The same numerical order applies to their spaces.
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Numerical order of the ledger lines.]{Numerical order of the ledger lines.}\label{fig:ledger}
+  \ec
+\efi
+
+\exercise{staff}{\grafex}{
+  In music paper, write the numerical order of all lines and spaces of the staff. Same for the ledger lines and spaces.
+}
+
+\section*{Clef\index{Clef}}
+
+The clef is the symbol that is written at the beginning of the staff, and indicates the place that the notes should occupy in the \textbf{staff}. There are seven clefs in total. The first one, which is the Sol clef, G clef or treble clef, is represented with the following symbol:
+
+\bfi[H]
+  \bc
+    \begin{lilypond}[fragment, staffsize = 20]
+      \omit Staff.TimeSignature
+      \hide Voice.NoteHead
+      \hide Voice.Stem
+      \override NoteHead.no-ledgers = ##t
+      \clef treble
+        c4
+    \end{lilypond}
+    \caption[Sol clef.]{Sol clef.}\label{fig:gclef}
+  \ec
+\efi
+
+And it indicates that the note of the same name (Sol) should be placed in the second line of the staff. The other notes would be placed in the available lines and spaces following the natural ascendent or descentent order.
+
+Example:
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Notes, according to the Sol clef.]{Notes, according to the Sol clef.}\label{fig:gclefnotes}
+  \ec
+\efi
+
+\exercise{clef}{\grafex}{
+  Write down the clef and all the notes that can be placed in between the two notes below, taking into account the previous example.
+
+  \vspace*{1em}\hspace*{0.4\textwidth}
+    \begin{lilypond}[fragment, staffsize = 20]
+      \omit Staff.TimeSignature
+      \hide Staff.BarLine
+      \clef treble
+        \relative c'' { g,1 d'''1}
+      \addlyrics { Sol Re }
+    \end{lilypond}
+}
+
+\section*{Metre\index{Bar}\index{Measure}\index{Metre}}
+
+The metre, bar or measure is a space of time divided in 2, 3 or 4 equal parts or beats. Its purpose is to measure the duration of the sounds.
+
+Said parts are considered strong or weak, according to their stronger or weaker rhythmic accentuation.
+
+The so called "\textit{Compasillo}" metre, quadruple metre, quadruple time or 4/4 metre, regulates all the others, and it's represented with the following symbol:
+
+\bfi[H]
+  \bc
+    \begin{lilypond}[fragment, staffsize = 20]
+      \hide Staff.Clef
+      \hide Voice.NoteHead
+      \hide Voice.Stem
+      \override NoteHead.no-ledgers = ##t
+      \clef treble
+        \time 4/4
+      c4
+    \end{lilypond}\vspace*{-1em}
+    \caption[4/4 metre.]{4/4 metre.}\label{fig:compasillo}
+  \ec
+\efi
+
+It has four parts or beats, which are marked with the right hand, doing the movements indicated by the figure below:
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Movement of the hand to measure a 4/4 metre.]{Movement of the hand to measure a 4/4 metre.}\label{fig:marcado}
+  \ec
+\efi
+
+From the four parts of this measure, the first and third are considered \textbf{strong}, and the second and fourth \textbf{weak}.
+
+\section*{Tempo\index{Tempo}}
+
+Is the degree of slowness or swiftness with which the parts of a metre should be measured. Tempo is usually measured in beats per minute (or bpm).
+
+The most important are five, and according with general usage, they are written in Italian.
+
+This are their English equivalents and speed in bpm:
+
+\ctable [
+  cap	    = {Principal movements.},
+  caption = {Principal movements with their respective English translation.},
+  label = {tab:movements},
+  pos	  = H,
+  botcap
+]
+  {l>{\bfseries} c r l}
+  {}
+   {\FL
+    Largo   & \dotfill &   40--60 bpm & Very slow\\
+    Adagio  & \dotfill &   66--76 bpm & Slow\\
+    Andante & \dotfill &  76--108 bpm & Calm, but without slowness\\
+    Allegro & \dotfill & 120--156 bpm & Fast\\
+    Presto  & \dotfill & 168--200 bpm & Very fast
+  \LL}
+
+\exercise{tempo}{\grafex}{Mark the metre several times using the different tempos explained.}
+
+
+\section*{Bar lines\index{Bar lines}}
+
+They cross the staff vertically. They are used to mark the space of time that corresponds to each measure or bar.
+
+If there is an important change during the course of a musical composition, one uses two bar lines to separate the two sections. There is also a bar line followed by a thicker bar line, to indicate the end.
+
+Example:
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Staff showing single, double and bold double bar lines.]{Staff showing single, double and bold double bar lines.}\label{fig:barlines}
+  \ec
+\efi
+
+When the action of these bar lines is extended to two or more lines of music that are played simultaneously, we put a \textbf{brace} before the first bar line that connects them.
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Three connected staves marked by a brace.]{Three connected staves marked by a brace.}\label{fig:brace}
+  \ec
+\efi
+
+
+
+\section*{Musical note\index{Musical note}}
+
+It is how we characterize the notes to determine the duration of their sound. The main ones are seven and their names are \textbf{whole note} (4 beats), \textbf{half note} (2 beats), \textbf{quarter note} (1 beat), \textbf{eight note} (1/2 beat), \textbf{sixteenth note} (1/4 beat), \textbf{thirty-second note} (1/8 beat) and \textbf{sixty-fourth note} (1/16 beat).
+
+
+\section*{Rest note\index{Rest note}}
+
+They are the symbols representing the musical notes when their sound has to cease. There are as many as musical notes and their duration is the same of the note after which is named. The \textbf{whole note} and \textbf{half note} rests are only different in that the former is placed below the fourth line of the staff, while the latter is placed above the third line.
+
+\bfi[H]
+  \bc
+%		\includegraphics[width=\textwidth]{}\\[12pt]
+    \caption[Shape of the musical notes and their respective rest notes.]{Shape of the musical notes and their respective rest notes.}\label{fig:notes}
+  \ec
+\efi

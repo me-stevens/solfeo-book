@@ -3,6 +3,8 @@ rm -rf out
 
 # Then, compile the lytex files
 lilypond-book --output=out --left-padding=0 --process='lilypond --define-default=line-width=10\cm' solfeopreface.lytex
+lilypond-book --output=out --left-padding=0 --process='lilypond --define-default=line-width=10\cm' solfeo01.lytex
+lilypond-book --output=out --left-padding=0 --process='lilypond --define-default=line-width=10\cm' solfeosolutions.lytex
 lilypond-book --output=out --left-padding=0 --process='lilypond --define-default=line-width=10\cm' solfeoback.lytex
 
 # Finally, compile tex files
